@@ -9,5 +9,5 @@ Currently, two official plugins are available:
 
 # Run Frontend
 
-nvm install --lts
+nvm use --lts
 npm run dev

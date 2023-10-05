@@ -20,13 +20,10 @@ export default function Account({ type, cardNumber, amount, description }) {
 Account.propTypes = {
   type: PropTypes.string.isRequired,
   cardNumber: PropTypes.number.isRequired,
-  amount: PropTypes.number.isRequired,
+  amount: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired
 }
 
 Account.defaultProps = {
-  type: "",
-  cardNumber: "0000",
-  amount: "00,000.00",
-  description: ""
+  cardNumber: "0000"
 }

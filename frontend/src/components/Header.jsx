@@ -2,16 +2,20 @@ import { Link } from "react-router-dom"
 import Logo from "../assets/argentBankLogo.png"
 import { useDispatch, useSelector } from "react-redux"
 import { logout } from "../redux/features/authSlice"
+import { resetProfile } from "../redux/features/profileSlice"
 
 export default function Header() {
   // Redux States
   const { token } = useSelector(state => state.auth)
+  const { userName } = useSelector(state => state.profile)
 
   const dispatch = useDispatch()
 
   const handleLogOut = () => {
     // Retire token du store
     dispatch(logout())
+    // Réinitialise le profil utilisateur
+    dispatch(resetProfile())
   }
 
   return (
@@ -30,7 +34,7 @@ export default function Header() {
             <>
               <Link className="main-nav-item" to="/profile">
                 <i className="fa fa-user-circle"></i>
-                {"username"}
+                {userName}
               </Link>
 
               <Link className="main-nav-item" to="/" onClick={handleLogOut}>

@@ -317,13 +317,13 @@ body {
 .alert {
   color: red;
   font-weight: 500;
-  margin: 0;
+  margin: 5px 0;
 }
 
 .success {
   color: #00bc77;
   font-weight: 500;
-  margin: 0;
+  margin: 5px 0;
 }
 
 .modal {

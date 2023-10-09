@@ -39,7 +39,7 @@ const profileSlice = createSlice({
 
 // on extrait les actions et le reducer
 export const { actions, reducer } = profileSlice
-// on export chaque action individuellement
+// Export chaque action individuellement
 export const { setProfile, errorProfile, resetProfile } = actions
-// on export le reducer comme default export
+// Export le reducer comme default export
 export default reducer

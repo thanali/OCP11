@@ -23,7 +23,7 @@ const authSlice = createSlice({
 })
 // on extrait les actions et le reducer
 export const { actions, reducer } = authSlice
-// on export chaque action individuellement
+// Export chaque action individuellement
 export const { setToken, errorLogin, logout } = actions
-// on export le reducer comme default export
+// Export le reducer comme default export
 export default reducer

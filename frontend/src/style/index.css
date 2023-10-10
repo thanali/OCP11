@@ -17,6 +17,8 @@ body {
   --main-color: #00bc77;
   --alert-color: #ff0000;
   --alert-tex-color: #bc0000;
+  --bg-color-dark: #12002b;
+  --bg-color-light: #fff;
 }
 
 .main {
@@ -24,11 +26,11 @@ body {
 }
 
 .bg-dark {
-  background-color: #12002b;
+  background-color: var(--bg-color-dark);
 }
 
 .bg-light {
-  background-color: #fff;
+  background-color: var(--bg-color-light);
 }
 
 .sr-only {
@@ -321,8 +323,9 @@ body {
 
 /* Alerts */
 .alert {
-  color: --alert-color;
+  color: var(--alert-color);
   font-weight: 500;
+  font-size: 1.2rem;
   margin: 5px 0;
 }
 
@@ -334,7 +337,7 @@ body {
 
 /* Modal */
 .alert {
-  color: --alert-color;
+  color: var(--alert-color);
   font-weight: 500;
   margin: 5px 0;
 }
@@ -408,6 +411,7 @@ body {
   }
 }
 
+/* Error Page */
 .error-page {
   position: relative;
   color: var(--main-color);

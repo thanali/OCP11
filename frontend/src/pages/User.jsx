@@ -7,38 +7,37 @@ import { errorProfile, setProfile } from "../redux/features/profileSlice"
 
 export default function User() {
   // Redux State
-  const { token } = useSelector(state => state.auth)
+  const token = useSelector(state => state.auth)
   const profile = useSelector(state => state.profile)
 
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
-  // Si pas de token dans le state, retourner à la page d'accueil
-  useEffect(() => {
-    !token ? navigate("/") : null
-  })
-
   // Chargement du profil à l'ouverture de la page
   useEffect(() => {
-    const fetchDataProfile = async () => {
-      try {
-        const response = await fetch(
-          "http://localhost:3001/api/v1/user/profile",
-          {
-            method: "POST",
-            headers: {
-              Authorization: `Bearer ${token}`
+    if (!token) {
+      navigate("/")
+    } else {
+      const fetchDataProfile = async () => {
+        try {
+          const response = await fetch(
+            "http://localhost:3001/api/v1/user/profile",
+            {
+              method: "POST",
+              headers: {
+                Authorization: `Bearer ${token}`
+              }
             }
-          }
-        )
-        const data = await response.json()
-        dispatch(setProfile({ data }))
-      } catch (error) {
-        dispatch(errorProfile("Erreur de chargement des données"))
+          )
+          const data = await response.json()
+          dispatch(setProfile({ data }))
+        } catch (error) {
+          dispatch(errorProfile("Loading error"))
+        }
       }
+      fetchDataProfile()
     }
-    fetchDataProfile()
-  })
+  }, [token, dispatch, navigate])
 
   return (
     <>

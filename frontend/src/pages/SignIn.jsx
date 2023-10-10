@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { errorLogin, setToken } from "../redux/features/authSlice"
+import { loginUser } from "../redux/features/authSlice"
 import { useNavigate } from "react-router-dom"
 
 export default function SignIn() {
@@ -9,35 +9,27 @@ export default function SignIn() {
   const [password, setPassword] = useState("")
   const [remember, setRemember] = useState(false)
   // State Redux
-  const { error } = useSelector(state => state.auth)
+  const { loading, error } = useSelector(state => state.auth)
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  const handleLoginEvent = async e => {
+  const handleLoginEvent = e => {
     e.preventDefault()
+    const userCredentials = { email, password }
 
-    try {
-      const response = await fetch("http://localhost:3001/api/v1/user/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password })
-      })
-      const data = await response.json()
-      const token = data.body.token
-      dispatch(setToken({ token }))
+    dispatch(loginUser(userCredentials)).then(result => {
+      if (result.payload) {
+        // Si case remember me cochée, enregistrement de l'email dans le local storage
+        remember
+          ? localStorage.setItem("email", email)
+          : localStorage.removeItem("email")
 
-      // Si case remember me cochée, enregistrement de l'email dans le local storage
-      remember
-        ? localStorage.setItem("email", email)
-        : localStorage.removeItem("email")
-
-      setEmail("")
-      setPassword("")
-      navigate("/profile")
-    } catch (error) {
-      dispatch(errorLogin("Connection error: incorrect email or password."))
-    }
+        setEmail("")
+        setPassword("")
+        navigate("/profile")
+      }
+    })
   }
 
   return (
@@ -73,9 +65,13 @@ export default function SignIn() {
           <label htmlFor="remember-me">Remember me</label>
         </div>
         <button type="submit" className="sign-in-button">
-          Sign In
+          {loading ? "Loading..." : "Sign In"}
         </button>
-        {error && <p className="alert">{error}</p>}
+        {error && (
+          <p className="alert">
+            {"Connection error: incorrect email or password."}
+          </p>
+        )}
       </form>
     </section>
   )

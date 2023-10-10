@@ -1,13 +1,13 @@
 import { useDispatch, useSelector } from "react-redux"
 import Account from "../components/Account"
-import ModalUsername from "../components/ModalUsername"
+// import ModalUsername from "../components/ModalUsername"
 import { useNavigate } from "react-router-dom"
 import { useEffect } from "react"
-import { errorProfile, setProfile } from "../redux/features/profileSlice"
+import { fetchProfile } from "../redux/features/profileSlice"
 
 export default function User() {
   // Redux State
-  const token = useSelector(state => state.auth)
+  const { token } = useSelector(state => state.auth)
   const profile = useSelector(state => state.profile)
 
   const navigate = useNavigate()
@@ -18,24 +18,7 @@ export default function User() {
     if (!token) {
       navigate("/")
     } else {
-      const fetchDataProfile = async () => {
-        try {
-          const response = await fetch(
-            "http://localhost:3001/api/v1/user/profile",
-            {
-              method: "POST",
-              headers: {
-                Authorization: `Bearer ${token}`
-              }
-            }
-          )
-          const data = await response.json()
-          dispatch(setProfile({ data }))
-        } catch (error) {
-          dispatch(errorProfile("Loading error"))
-        }
-      }
-      fetchDataProfile()
+      dispatch(fetchProfile(token))
     }
   }, [token, dispatch, navigate])
 
@@ -48,7 +31,7 @@ export default function User() {
           <br />
           {profile.firstName} {profile.lastName} !
         </h1>
-        <ModalUsername />
+        {/* <ModalUsername /> */}
       </div>
       <h2 className="sr-only">Accounts</h2>
       <Account

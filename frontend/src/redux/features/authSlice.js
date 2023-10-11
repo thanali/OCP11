@@ -10,7 +10,6 @@ export const loginUser = createAsyncThunk(
     })
     const data = await response.json()
     const token = data?.body.token
-    // localStorage.setItem("token", JSON.stringify(token))
     return token
   }
 )
@@ -30,28 +29,27 @@ const authSlice = createSlice({
       state.error = null
     }
   },
+  // Actions gérées par le thunk asynchrone
   extraReducers: builder => {
     builder
       .addCase(loginUser.pending, state => {
         state.loading = true
-        state.token = null
         state.error = null
       })
       .addCase(loginUser.fulfilled, (state, action) => {
         state.loading = false
         state.token = action.payload
-        state.error = null
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.loading = false
-        state.token = null
         state.error = action.error
       })
   }
 })
-// on extrait les actions et le reducer
+
+// Extrait l'action et le reducer
 export const { actions, reducer } = authSlice
-// Export chaque action individuellement
+// Export de l'action individuellement
 export const { logout } = actions
 // Export le reducer comme default export
 export default reducer

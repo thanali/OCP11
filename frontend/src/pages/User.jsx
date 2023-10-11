@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux"
 import Account from "../components/Account"
-// import ModalUsername from "../components/ModalUsername"
+import ModalUsername from "../components/ModalUsername"
 import { useNavigate } from "react-router-dom"
 import { useEffect } from "react"
 import { fetchProfile } from "../redux/features/profileSlice"
@@ -31,7 +31,7 @@ export default function User() {
           <br />
           {profile.firstName} {profile.lastName} !
         </h1>
-        {/* <ModalUsername /> */}
+        <ModalUsername />
       </div>
       <h2 className="sr-only">Accounts</h2>
       <Account

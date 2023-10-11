@@ -1,16 +1,37 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 
-export const fetchProfile = createAsyncThunk("user/profile", async token => {
-  const response = await fetch("http://localhost:3001/api/v1/user/profile", {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${token}`
-    }
-  })
-  const data = await response.json()
-  console.log(data)
-  return data
-})
+// Récupération du profil
+export const fetchProfile = createAsyncThunk(
+  "user/fetchprofile",
+  async token => {
+    const response = await fetch("http://localhost:3001/api/v1/user/profile", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+    const data = await response.json()
+    console.log(data)
+    return data
+  }
+)
+
+// Modification de l'username
+export const updateUsername = createAsyncThunk(
+  "user/updateUsername",
+  async ({ token, newUserName }) => {
+    const response = await fetch("http://localhost:3001/api/v1/user/profile", {
+      method: "PUT",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ userName: newUserName })
+    })
+    const data = await response.json()
+    return data
+  }
+)
 
 const profileSlice = createSlice({
   name: "profile",
@@ -33,14 +54,11 @@ const profileSlice = createSlice({
       state.error = null
     }
   },
+  // Actions gérées par le thunk asynchrone fetchProfile
   extraReducers: builder => {
     builder
       .addCase(fetchProfile.pending, state => {
         state.loading = true
-        state.userName = null
-        state.firstName = null
-        state.lastName = null
-        state.email = null
         state.error = null
       })
       .addCase(fetchProfile.fulfilled, (state, action) => {
@@ -50,22 +68,30 @@ const profileSlice = createSlice({
         state.firstName = firstName
         state.lastName = lastName
         state.email = email
-        state.error = null
       })
       .addCase(fetchProfile.rejected, (state, action) => {
         state.loading = false
-        state.userName = null
-        state.firstName = null
-        state.lastName = null
-        state.email = null
+        state.error = action.payload
+      })
+      // Actions gérées par le thunk asynchrone UpdateUsername
+      .addCase(updateUsername.pending, state => {
+        state.loading = true
+        state.error = null
+      })
+      .addCase(updateUsername.fulfilled, (state, action) => {
+        state.loading = false
+        state.userName = action.payload.body.userName
+      })
+      .addCase(updateUsername.rejected, (state, action) => {
+        state.loading = false
         state.error = action.payload
       })
   }
 })
 
-// on extrait les actions et le reducer
+// Extrait l'action et le reducer
 export const { actions, reducer } = profileSlice
-// Export chaque action individuellement
+// Export de l'action individuellement
 export const { resetProfile } = actions
 // Export le reducer comme default export
 export default reducer

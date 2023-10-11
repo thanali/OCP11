@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { setProfile } from "../redux/features/profileSlice"
+import { updateUsername } from "../redux/features/profileSlice"
 
 export default function ModalUsername() {
   // States
@@ -11,6 +11,7 @@ export default function ModalUsername() {
 
   // Redux State
   const { token } = useSelector(state => state.auth)
+  const { loading, error } = useSelector(state => state.profile)
 
   const dispatch = useDispatch()
 
@@ -28,26 +29,10 @@ export default function ModalUsername() {
     if (newUserName === "") {
       setMsgError("Please enter your new username")
     } else {
-      try {
-        const response = await fetch(
-          "http://localhost:3001/api/v1/user/profile",
-          {
-            method: "PUT",
-            headers: {
-              Authorization: `Bearer ${token}`,
-              "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ userName: newUserName })
-          }
-        )
-        const data = await response.json()
-        dispatch(setProfile({ data }))
-        setNewUserName("")
-        setMsgSuccess("Username successfully changed")
-        setTimeout(toggle, 3000)
-      } catch (error) {
-        setMsgError("Unsuccessfull change")
-      }
+      dispatch(updateUsername({ token, newUserName }))
+      setNewUserName("")
+      setMsgSuccess("Username successfully changed !")
+      setTimeout(toggle, 2500)
     }
   }
 
@@ -64,8 +49,11 @@ export default function ModalUsername() {
               x
             </button>
             <h2 className="modal-title">Change Username</h2>
+
             {msgSuccess && <p className="success">{msgSuccess}</p>}
+            {error && !msgError && <p className="alert">{error.message}</p>}
             {msgError && <p className="alert">{msgError}</p>}
+
             <form
               className="modal-form"
               onSubmit={e => handleUserNameSubmit(e)}>
@@ -78,7 +66,7 @@ export default function ModalUsername() {
               />
 
               <button type="submit" className="edit-button">
-                Submit
+                {loading ? "We're on it" : "Submit"}
               </button>
             </form>
           </div>

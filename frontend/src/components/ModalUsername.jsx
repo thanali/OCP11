@@ -61,11 +61,12 @@ export default function ModalUsername() {
                 className="modal-form-input"
                 name="answer"
                 type="text"
+                placeholder="Enter your new username here"
                 value={newUserName}
                 onChange={e => setNewUserName(e.target.value)}
               />
 
-              <button type="submit" className="edit-button">
+              <button type="submit" className="modal-button">
                 {loading ? "We're on it" : "Submit"}
               </button>
             </form>

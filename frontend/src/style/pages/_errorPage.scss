@@ -1,0 +1,32 @@
+.error {
+  &-page {
+    position: relative;
+    color: $main-color;
+    padding-bottom: 2vw;
+  }
+
+  &-title {
+    position: absolute;
+    top: -33.5vw;
+    left: 17vw;
+    font-size: 45vw;
+  }
+
+  &-draw {
+    margin-top: 10vw;
+    width: 34vw;
+  }
+
+  &-content {
+    margin-top: 7vw;
+    font-size: 1.6rem;
+  }
+
+  &-link {
+    position: relative;
+    z-index: 2;
+    margin: 1rem;
+    color: $main-color;
+    cursor: pointer;
+  }
+}

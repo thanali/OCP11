@@ -1,9 +1,9 @@
 import { useDispatch, useSelector } from "react-redux"
-import Account from "../components/Account"
-import ModalUsername from "../components/ModalUsername"
 import { useNavigate } from "react-router-dom"
 import { useEffect } from "react"
 import { fetchProfile } from "../redux/features/profileSlice"
+import Account from "../components/Account"
+import ModalUsername from "../components/ModalUsername"
 
 export default function User() {
   // Redux State

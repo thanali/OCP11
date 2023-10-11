@@ -6,14 +6,14 @@ import {
   createBrowserRouter,
   createRoutesFromElements
 } from "react-router-dom"
-import "./style/index.css"
+import "./style/main.scss"
 import { Provider } from "react-redux"
 import store from "./redux/store"
-import App from "./pages/App"
+import App from "./App"
+import ErrorPage from "./pages/ErrorPage"
 import Home from "./pages/Home"
 import SignIn from "./pages/SignIn"
 import User from "./pages/User"
-import ErrorPage from "./pages/ErrorPage"
 
 const router = createBrowserRouter(
   createRoutesFromElements(

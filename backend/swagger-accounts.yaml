@@ -1,0 +1,194 @@
+swagger: "2.0"
+info:
+  title: Bank Argent API documentation
+  description: Contains API endpoints in this codebase
+  version: "1.0.0"
+  termsOfService: "http://swagger.io/terms/"
+host: localhost:3001
+basePath: /api/v1
+schemes:
+  - http
+paths:
+  /accounts:
+    get:
+      tags:
+        - Accounts Module
+      summary: All accounts
+      description: API for Accounts
+      security:
+        - Bearer: []
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Successfully Get Accounts
+          schema:
+            $ref: "#/definitions/Accounts"
+        "400":
+          description: Unauthorized access
+        "500":
+          description: Internal Server Error
+  /accounts/{accountId}/transactions:
+    get:
+      tags:
+        - Accounts Module
+      summary: All transactions of a specific account
+      description: API for a Designated Account Transactions
+      security:
+        - Bearer: []
+      parameters:
+        - name: accountId
+          in: path
+          description: The ID of the account for which to fetch transactions.
+          required: true
+          type: string
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Successfully Get Account
+          schema:
+            $ref: "#/definitions/Transactions"
+        "400":
+          description: Unauthorized access
+        "500":
+          description: Internal Server Error
+  /accounts/{accountId}/transactions/{transactionId}:
+    post:
+      tags:
+        - Transactions Module
+      summary: Add Transaction Annotations
+      description: API for adding annotations to a transaction
+      security:
+        - Bearer: []
+      parameters:
+        - name: accountId
+          in: path
+          description: The ID of the account for which to fetch transactions
+          required: true
+          type: string
+        - name: transactionId
+          in: path
+          description: The ID of the transaction for which to add annotations
+          required: true
+          type: string
+        - in: body
+          name: body
+          description: Add transactions annotations
+          required: true
+          schema:
+            $ref: "#/definitions/TransactionUserChange"
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Successfully Add Transaction Annotations
+          schema:
+            $ref: "#/definitions/Transaction"
+        "400":
+          description: Unauthorized access
+        "500":
+          description: Internal Server Error
+    put:
+      tags:
+        - Transactions Module
+      summary: Edit Transaction Annotations
+      description: API for updating a transaction annotations
+      security:
+        - Bearer: []
+      parameters:
+        - name: accountId
+          in: path
+          description: The ID of the account for which to fetch transactions
+          required: true
+          type: string
+        - name: transactionId
+          in: path
+          description: The ID of the transaction for which to change annotations
+          required: true
+          type: string
+        - in: body
+          name: body
+          description: Update transactions annotations
+          required: true
+          schema:
+            $ref: "#/definitions/TransactionUserChange"
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Successfully Update Transaction Informations
+          schema:
+            $ref: "#/definitions/Transaction"
+        "400":
+          description: Unauthorized access
+        "500":
+          description: Internal Server Error
+securityDefinitions:
+  Bearer:
+    type: apiKey
+    name: Authorization
+    in: header
+definitions:
+  Accounts:
+    type: array
+    items:
+      $ref: "#/definitions/Account"
+  Account:
+    type: object
+    properties:
+      accountId:
+        type: string
+        description: account id
+      accountType:
+        type: string
+        description: account type
+      cardInfo:
+        type: integer
+        description: last 4 digits of card
+      currency:
+        type: string
+        description: identification of the currency of the country
+      balance:
+        type: integer
+        description: total balance in account
+      balanceType:
+        type: string
+        description: type of balance in account
+  Transactions:
+    type: array
+    items:
+      $ref: "#/definitions/Transaction"
+  Transaction:
+    properties:
+      transactionId:
+        type: string
+        description: transaction id
+      description:
+        type: string
+        description: title of the transaction
+      transactionType:
+        type: string
+        description: transaction type
+      amount:
+        type: integer
+        description: transaction amount
+      date:
+        type: string
+        format: date-time
+        description: date of transaction
+      category:
+        type: string
+        description: category of the transaction
+      annotation:
+        type: string
+        description: note on the transaction
+  TransactionUserChange:
+    type: object
+    properties:
+      category:
+        type: string
+        description: category of the transaction
+      annotation:
+        type: string
+        description: category of the transaction

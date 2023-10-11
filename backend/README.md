@@ -33,6 +33,7 @@ mongo --version
 npm install
 
 # Start local dev server
+brew services start mongodb-community@7.0
 nvm use 12
 npm run dev:server
 

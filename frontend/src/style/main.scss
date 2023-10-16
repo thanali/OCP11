@@ -5,10 +5,10 @@
 @import "./components/account";
 @import "./components/feature";
 @import "./components/header";
-@import "./components/hero";
 @import "./components/modalUsername";
 // Pages
 @import "./pages/errorPage";
+@import "./pages/home";
 @import "./pages/signIn";
 @import "./pages/user";
 
@@ -38,10 +38,6 @@ body {
 
 .bg-dark {
   background-color: $bg-color-dark;
-}
-
-.bg-light {
-  background-color: $bg-color-light;
 }
 
 .sr-only {

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import Logo from "../assets/argentBankLogo.png"
+import Logo from "../assets/argentBankLogo.webp"
 import { useDispatch, useSelector } from "react-redux"
 import { logout } from "../redux/features/authSlice"
 import { resetProfile } from "../redux/features/profileSlice"

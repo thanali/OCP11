@@ -17,7 +17,7 @@ export default function SignIn() {
   const handleLoginEvent = e => {
     e.preventDefault()
     const userCredentials = { email, password }
-
+    // Récupère la méthode  fetch dans redux
     dispatch(loginUser(userCredentials)).then(result => {
       if (result.payload) {
         // Si case remember me cochée, enregistrement de l'email dans le local storage
@@ -44,6 +44,7 @@ export default function SignIn() {
             id="username"
             value={email}
             onChange={e => setEmail(e.target.value)}
+            autoComplete="email"
           />
         </div>
         <div className="input-wrapper">

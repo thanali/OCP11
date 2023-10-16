@@ -1,16 +1,5 @@
-.edit-button {
-  @include btn;
-  width: fit-content;
-  margin: auto;
-  padding: 8px 16px;
-}
-
-.modal-button {
-  @include btn;
-}
-
 .modal {
-  position: absolute;
+  position: fixed;
   top: 0;
   width: 100%;
   height: 100%;
@@ -43,9 +32,8 @@
   align-items: center;
   flex-direction: column;
   gap: 1rem;
-  margin: 10% auto;
+  margin: 12rem auto;
   width: 55vw;
-  border: none;
   background: #fff;
   text-align: center;
   padding: 3rem 2rem;
@@ -57,18 +45,22 @@
   gap: 0.7rem;
   width: 70%;
 
+  @media (max-width: 720px) {
+    width: 100%;
+  }
+
   &-input {
     padding: 10px;
   }
 }
 
-@media (max-width: 720px) {
-  .inner-modal {
-    width: 80vw;
-    margin: 20vw auto;
-  }
+.edit-button {
+  @include btn;
+  width: fit-content;
+  margin: auto;
+  padding: 8px 16px;
+}
 
-  .modal-form {
-    width: 100%;
-  }
+.modal-button {
+  @include btn;
 }

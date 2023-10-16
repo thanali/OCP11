@@ -1,6 +1,7 @@
 .main-nav {
   display: flex;
   justify-content: space-between;
+  gap: 1rem;
   align-items: center;
   padding: 5px 20px;
 
@@ -13,6 +14,10 @@
     font-weight: bold;
     color: #2c3e50;
     white-space: nowrap;
+
+    @media (max-width: 400px) {
+      font-size: 0.9rem;
+    }
   }
 
   & a.router-link-exact-active {
@@ -37,6 +42,7 @@
 .main-nav .main-nav-logo-image {
   max-width: 100%;
   width: 200px;
+  height: fit-content;
 }
 
 .fa {

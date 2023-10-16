@@ -12,6 +12,10 @@
   text-align: left;
   margin-bottom: 2rem;
 
+  @media (min-width: 720px) {
+    flex-direction: row;
+  }
+
   &-title {
     margin: 0;
     padding: 0;
@@ -22,6 +26,12 @@
   &-content-wrapper {
     width: 100%;
     flex: 1;
+
+    @media (min-width: 720px) {
+      &.cta {
+        flex: 0;
+      }
+    }
   }
 }
 
@@ -37,18 +47,8 @@
 
 .transaction-button {
   @include btn;
-}
 
-@media (min-width: 720px) {
-  .account {
-    flex-direction: row;
-
-    &-content-wrapper.cta {
-      flex: 0;
-    }
-  }
-
-  .transaction-button {
+  @media (min-width: 720px) {
     width: 200px;
   }
 }

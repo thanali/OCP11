@@ -5,8 +5,8 @@ export default function ErrorPage() {
   return (
     <div className="error-page">
       <div className="error-image">
-        <img src={Fantom} alt={"Not Found"} className="error-draw" />
-        <h1 className="error-title">4 4</h1>
+        <img src={Fantom} alt={"Not Found"} className="error-image-draw" />
+        <h1 className="error-image-title">4 4</h1>
       </div>
       <p className="error-content">{"Sorry, we don't see it."}</p>
       <Link to="/" className="error-link">
